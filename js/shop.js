@@ -122,25 +122,26 @@ function generateCart() {
         }
     }
     console.log(cart)
+    printCart()
 }
 
 // Exercise 5
 function applyPromotionsCart() {
     // Apply promotions to each item in the array "cart"
 
+    cart = cart.map(v => ({ ...v, subtotalWithDiscount: 0 }))
+
     for (x = 0; x < cart.length; x++) {
         if (cart[x].name === 'cooking oil' && cart[x].quantity >= 3) {
-            subtotalWithDiscount = 10
-            cart[x].price = subtotalWithDiscount * cart[x].quantity
-            console.log(cart[x].price)
+            cart[x].subtotalWithDiscount = 10
+            console.log(cart[x].subtotalWithDiscount)
         }
     }
 
     for (x = 0; x < cart.length; x++) {
         if (cart[x].name === 'Instant cupcake mixture' && cart[x].quantity >= 10) {
-            subtotalWithDiscount = ((cart[x].price) * 2) / 3
-            cart[x].price = subtotalWithDiscount * cart[x].quantity
-            console.log(cart[x].price)
+            cart[x].subtotalWithDiscount = ((cart[x].price) * 2) / 3
+            console.log(cart[x].subtotalWithDiscount)
         }
     }
 }
@@ -148,6 +149,24 @@ function applyPromotionsCart() {
 // Exercise 6
 function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
+    applyPromotionsCart()
+
+    for(x = 0; x < cart.length; x ++){
+       let table = document.getElementById('cart_list');
+       let row = table.insertRow(-1);
+       let newCell = row.insertCell(0);
+       let newItemName = document.createTextNode(cart[x].name);
+       newCell.appendChild(newItemName);
+       newCell = row.insertCell(-1);
+       let newItemPrice = document.createTextNode(cart[x].price + '€')
+       newCell.appendChild(newItemPrice)
+       newCell = row.insertCell(-1);
+       let newItemQuantity = document.createTextNode(cart[x].quantity)
+       newCell.appendChild(newItemQuantity)
+       newCell = row.insertCell(-1);
+       let newItemDiscount = document.createTextNode(cart[x].subtotalWithDiscount + '€')
+       newCell.appendChild(newItemDiscount)
+    }
 }
 
 
