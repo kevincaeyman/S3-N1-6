@@ -71,6 +71,8 @@ let cart = [];
 
 let total = 0;
 
+let subtotalWithDiscount = 0
+
 // Exercise 1
 function buy(id) {
     // 1. Loop for to the array products to get the item to add to cart
@@ -125,12 +127,22 @@ function generateCart() {
 // Exercise 5
 function applyPromotionsCart() {
     // Apply promotions to each item in the array "cart"
-    const oliveOilIndex = cart.findIndex((item) => item.name=="cooking oil") //We're searching for the id of the item "cooking oil" in the array
 
-    if(cart[oliveOilIndex].quantity >= 3){ //If the item quantity is equal to or higher than 3 
-        cart[oliveOilIndex].price = 10; // Its price changes to 10
+    for (x = 0; x < cart.length; x++) {
+        if (cart[x].name === 'cooking oil' && cart[x].quantity >= 3) {
+            subtotalWithDiscount = 10
+            cart[x].price = subtotalWithDiscount * cart[x].quantity
+            console.log(cart[x].price)
+        }
     }
-    console.log(cart[oliveOilIndex].price)
+
+    for (x = 0; x < cart.length; x++) {
+        if (cart[x].name === 'Instant cupcake mixture' && cart[x].quantity >= 10) {
+            subtotalWithDiscount = ((cart[x].price) * 2) / 3
+            cart[x].price = subtotalWithDiscount * cart[x].quantity
+            console.log(cart[x].price)
+        }
+    }
 }
 
 // Exercise 6
